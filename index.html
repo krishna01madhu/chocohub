@@ -1,0 +1,746 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Choco Hub | Homemade Chocolate Factory</title>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap');
+
+:root {
+    --chocolate: #301710;
+    --brown: #593222;
+    --caramel: #d7a16b;
+    --cream: #fff8ee;
+    --pink: #f4dfd5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--cream);
+    color: var(--chocolate);
+}
+
+a {
+    text-decoration: none;
+}
+
+/* NAVIGATION */
+
+header {
+    background: var(--chocolate);
+    color: white;
+    padding: 20px 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--caramel);
+}
+
+.logo span {
+    color: white;
+}
+
+nav {
+    display: flex;
+    gap: 27px;
+    align-items: center;
+}
+
+nav a {
+    color: #f5e9df;
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: var(--caramel);
+}
+
+.nav-order {
+    border: 1px solid var(--caramel);
+    padding: 11px 17px;
+}
+
+/* HERO SECTION */
+
+.hero {
+    min-height: 620px;
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    align-items: center;
+    gap: 45px;
+    padding: 75px 9%;
+    color: white;
+    background:
+        radial-gradient(ellipse at 85% 20%, #74472e, transparent 45%),
+        linear-gradient(125deg, #24110c, #4b281b);
+    overflow: hidden;
+}
+
+.eyebrow {
+    color: var(--caramel);
+    letter-spacing: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    margin-bottom: 24px;
+}
+
+.hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5vw, 72px);
+    line-height: 1.12;
+    margin-bottom: 25px;
+    animation: fadeUp 0.8s ease both;
+}
+
+.hero h1 em {
+    color: var(--caramel);
+}
+
+.hero p {
+    color: #dfcec2;
+    font-size: 15px;
+    line-height: 1.9;
+    max-width: 490px;
+    margin-bottom: 32px;
+}
+
+.button {
+    display: inline-block;
+    background: var(--caramel);
+    color: #301710;
+    padding: 15px 24px;
+    font-weight: 700;
+    font-size: 13px;
+    transition: 0.3s;
+    border: 1px solid var(--caramel);
+}
+
+.button:hover {
+    background: #f0c99e;
+    transform: translateY(-3px);
+}
+
+.button-outline {
+    background: transparent;
+    color: white;
+    border-color: #ffffff70;
+    margin-left: 10px;
+}
+
+.hero-photo {
+    position: relative;
+    animation: fadeUp 1s ease both;
+}
+
+.hero-photo img {
+    width: 100%;
+    height: 440px;
+    object-fit: cover;
+    border-radius: 180px 180px 5px 5px;
+    border: 7px solid #ffffff12;
+}
+
+.photo-label {
+    position: absolute;
+    bottom: 22px;
+    left: -25px;
+    background: var(--cream);
+    color: var(--chocolate);
+    padding: 17px 22px;
+    box-shadow: 0 10px 30px #0003;
+}
+
+.photo-label strong {
+    display: block;
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+}
+
+.photo-label small {
+    color: #8a6a55;
+}
+
+/* PROMISE STRIP */
+
+.promises {
+    background: #f0dfcb;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 24px 8%;
+    color: #5c3928;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* GENERAL SECTIONS */
+
+section.section {
+    padding: 85px 9%;
+}
+
+.section-title {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 45px;
+}
+
+.section-title .eyebrow {
+    color: #a76a3c;
+    margin-bottom: 14px;
+}
+
+.section-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 47px);
+    margin-bottom: 15px;
+}
+
+.section-title p {
+    font-size: 14px;
+    line-height: 1.9;
+    color: #806858;
+}
+
+/* PRODUCT CARDS */
+
+.products {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.product-card {
+    background: white;
+    border: 1px solid #ecddcf;
+    transition: 0.35s;
+    overflow: hidden;
+}
+
+.product-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 18px 35px #42271a18;
+}
+
+.product-card img {
+    width: 100%;
+    height: 245px;
+    object-fit: cover;
+    display: block;
+    transition: 0.5s;
+}
+
+.product-card:hover img {
+    transform: scale(1.05);
+}
+
+.product-image {
+    overflow: hidden;
+    position: relative;
+}
+
+.tag {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    background: var(--cream);
+    padding: 8px 12px;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.product-details {
+    padding: 23px;
+}
+
+.product-details h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+    margin-bottom: 10px;
+}
+
+.product-details p {
+    font-size: 13px;
+    color: #826d5d;
+    line-height: 1.8;
+    margin-bottom: 17px;
+}
+
+.product-details a {
+    font-size: 12px;
+    font-weight: 700;
+    color: #9b6138;
+}
+
+/* ABOUT */
+
+.about {
+    background: var(--pink);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+.about img {
+    width: 100%;
+    height: 430px;
+    object-fit: cover;
+}
+
+.about h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 4vw, 48px);
+    line-height: 1.2;
+    margin-bottom: 22px;
+}
+
+.about p {
+    font-size: 14px;
+    line-height: 2;
+    color: #735747;
+    margin-bottom: 18px;
+}
+
+.quote {
+    border-left: 3px solid #bc8454;
+    padding: 12px 18px;
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    font-size: 19px;
+    margin: 25px 0;
+}
+
+/* PROCESS */
+
+.process {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+}
+
+.process-card {
+    border-top: 1px solid #d8c0a9;
+    padding-top: 24px;
+}
+
+.process-card .number {
+    color: #b87a47;
+    font-family: 'Playfair Display', serif;
+    font-size: 40px;
+    margin-bottom: 15px;
+}
+
+.process-card h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 23px;
+    margin-bottom: 12px;
+}
+
+.process-card p {
+    color: #806858;
+    line-height: 1.9;
+    font-size: 13px;
+}
+
+/* CONTACT */
+
+.contact {
+    margin: 0 9% 80px;
+    padding: 65px 25px;
+    text-align: center;
+    background: radial-gradient(circle at top right, #70452e, #29140d 65%);
+    color: white;
+}
+
+.contact h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(32px, 4vw, 46px);
+    margin-bottom: 17px;
+}
+
+.contact p {
+    color: #e0cfc3;
+    max-width: 570px;
+    margin: 0 auto 28px;
+    font-size: 14px;
+    line-height: 1.9;
+}
+
+/* FOOTER */
+
+footer {
+    background: #1c100b;
+    color: #d5c2b5;
+    padding: 30px 9%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+footer p {
+    font-size: 12px;
+    line-height: 1.8;
+}
+
+/* ANIMATIONS */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(22px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 800px) {
+    header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    nav {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 17px;
+    }
+
+    .hero {
+        grid-template-columns: 1fr;
+        padding: 60px 7%;
+    }
+
+    .hero-photo {
+        max-width: 500px;
+        margin: auto;
+        width: 100%;
+    }
+
+    .products {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .about {
+        grid-template-columns: 1fr;
+        gap: 35px;
+    }
+}
+
+@media (max-width: 540px) {
+    .hero h1 {
+        font-size: 43px;
+    }
+
+    .hero-photo img {
+        height: 320px;
+    }
+
+    .photo-label {
+        left: -5px;
+    }
+
+    section.section {
+        padding: 60px 6%;
+    }
+
+    .products,
+    .process {
+        grid-template-columns: 1fr;
+    }
+
+    .promises {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .contact {
+        margin: 0 5% 55px;
+        padding: 45px 18px;
+    }
+
+    footer {
+        justify-content: center;
+        text-align: center;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- NAVIGATION -->
+<header>
+    <a href="#home" class="logo">Choco <span>Hub.</span></a>
+
+    <nav>
+        <a href="#home">Home</a>
+        <a href="#products">Our Chocolates</a>
+        <a href="#about">Our Story</a>
+        <a href="#process">Our Process</a>
+        <a href="#contact" class="nav-order">Get in Touch ↗</a>
+    </nav>
+</header>
+
+<!-- HERO -->
+<main>
+<section class="hero" id="home">
+
+    <div>
+        <div class="eyebrow">Welocome to the world of Homemade Chocolate Experience</div>
+
+        <h1>
+            Happiness,<br>
+            Wrapped in <em>Chocolate.</em>
+        </h1>
+
+        <p>
+            Welcome to Choco Hub — where passion meets sweetness.
+            Discover our world of homemade chocolate creations,
+            thoughtfully made to turn little moments into beautiful memories.
+        </p>
+
+        <a href="#products" class="button">Explore Our Collection ↗</a>
+        <a href="#about" class="button button-outline">Our Story</a>
+    </div>
+
+    <div class="hero-photo">
+        <img
+            src="https://images.unsplash.com/photo-1548907040-4d42e3f2b8d8?auto=format&fit=crop&w=1000&q=85"
+            alt="Handcrafted chocolate collection">
+
+        <div class="photo-label">
+            <strong>Sweetness, made personal.</strong>
+            <small>Handmade with love ♡</small>
+        </div>
+    </div>
+
+</section>
+
+<!-- BRAND VALUES -->
+<div class="promises">
+    <div>♡ MADE WITH CARE</div>
+    <div>✦ HOMEMADE GOODNESS</div>
+    <div>◇ SWEET MOMENTS, ALWAYS</div>
+</div>
+
+<!-- PRODUCTS -->
+<section class="section" id="products">
+
+    <div class="section-title">
+        <div class="eyebrow">Discover the Difference</div>
+        <h2>A Little Something Sweet</h2>
+        <p>
+            From timeless classics to delightful gift ideas,
+            discover a chocolate for every mood and moment.
+        </p>
+    </div>
+
+    <div class="products">
+
+        <article class="product-card">
+            <div class="product-image">
+                <img
+                    src="https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=800&q=85"
+                    alt="Dark chocolate pieces">
+                <span class="tag">The Classic</span>
+            </div>
+
+            <div class="product-details">
+                <h3>Dark Desire</h3>
+                <p>
+                    Rich chocolate goodness for those who enjoy
+                    an intense cocoa-inspired treat.
+                </p>
+                <a href="#contact">ENQUIRE NOW ↗</a>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img
+                    src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=800&q=85"
+                    alt="Creamy milk chocolates">
+                <span class="tag">Sweet Favourite</span>
+            </div>
+
+            <div class="product-details">
+                <h3>Velvet Bliss</h3>
+                <p>
+                    A smooth, creamy chocolate treat to make
+                    your sweetest moments even better.
+                </p>
+                <a href="#contact">ENQUIRE NOW ↗</a>
+            </div>
+        </article>
+
+        <article class="product-card">
+            <div class="product-image">
+                <img
+                    src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=800&q=85"
+                    alt="Assorted chocolate treats">
+                <span class="tag">Made for Gifting</span>
+            </div>
+
+            <div class="product-details">
+                <h3>Choco Surprises</h3>
+                <p>
+                    Thoughtful chocolate treats for birthdays,
+                    celebrations, and special people.
+                </p>
+                <a href="#contact">ENQUIRE NOW ↗</a>
+            </div>
+        </article>
+
+    </div>
+</section>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+
+    <div>
+        <img
+            src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=1000&q=85"
+            alt="Beautiful chocolate-making presentation">
+    </div>
+
+    <div>
+        <div class="eyebrow">The Story Behind Choco Hub</div>
+
+        <h2>Not Just Chocolate.<br>A Little Piece of Love.</h2>
+
+        <p>
+            Choco Hub is a homemade chocolate factory built around
+            creativity, care, and the happiness that chocolate brings.
+            We believe that even a small chocolate can create a big smile.
+        </p>
+
+        <p>
+            Our vision is to create delightful chocolate treats for
+            everyday enjoyment, celebrations, and meaningful gifts.
+            Every creation reflects our love for making life's moments sweeter.
+        </p>
+
+        <div class="quote">
+            "Made by hand, inspired by love, remembered for its sweetness."
+        </div>
+
+        <a href="#contact" class="button">Connect With Us ↗</a>
+    </div>
+
+</section>
+
+<!-- OUR PROCESS -->
+<section class="section" id="process">
+
+    <div class="section-title">
+        <div class="eyebrow">The Choco Hub Way</div>
+        <h2>From Our Hearts to Your Hands</h2>
+        <p>
+            Every sweet creation begins with an idea and ends
+            with a moment worth remembering.
+        </p>
+    </div>
+
+    <div class="process">
+
+        <div class="process-card">
+            <div class="number">01</div>
+            <h3>Dream</h3>
+            <p>
+                We begin with creative ideas and a love for
+                creating special chocolate experiences.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <div class="number">02</div>
+            <h3>Create</h3>
+            <p>
+                We focus on careful preparation, attractive presentation,
+                and the little details that make each treat special.
+            </p>
+        </div>
+
+        <div class="process-card">
+            <div class="number">03</div>
+            <h3>Delight</h3>
+            <p>
+                Our goal is to bring happiness to everyday moments,
+                thoughtful gifts, and joyful celebrations.
+            </p>
+        </div>
+
+    </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+
+    <div class="eyebrow">Let's Make Something Sweet</div>
+
+    <h2>Your Next Favourite Chocolate Awaits.</h2>
+
+    <p>
+        Want to know more about our homemade chocolates?
+        Contact Choco Hub to enquire about our collection
+        and make your next occasion a little sweeter.
+    </p>
+
+    <!-- Replace the sample email with your real email -->
+    <a href="mailto:yourname@example.com" class="button">
+        Contact Choco Hub ↗
+    </a>
+
+</section>
+</main>
+
+<!-- FOOTER -->
+<footer>
+    <div>
+        <a href="#home" class="logo">Choco <span>Hub.</span></a>
+        <p>Homemade happiness in every bite.</p>
+    </div>
+
+    <p>
+        © 2026 Choco Hub<br>
+        Homemade Chocolate Factory
+    </p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ChocoHub | Handmade Chocolates</title>
+
+<style>
+:root {
+  --brown: #4b211d;
+  --dark: #321512;
+  --pink: #ffdae0;
+  --cream: #fff8f0;
+  --gold: #d99a43;
+  --green: #426b4a;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--cream);
+  color: var(--brown);
+}
+
+button, input, select {
+  font: inherit;
+}
+
+button { cursor: pointer; }
+
+.top-strip {
+  text-align: center;
+  padding: 10px;
+  color: white;
+  background: var(--brown);
+  font-size: 13px;
+  letter-spacing: 1px;
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 6%;
+  background: white;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  box-shadow: 0 4px 18px #4b211d10;
+}
+
+.logo {
+  font-size: 27px;
+  font-weight: 900;
+  white-space: nowrap;
+  color: var(--brown);
+}
+
+.logo span { color: #df7893; }
+
+.search-box {
+  display: flex;
+  flex: 1;
+  max-width: 510px;
+  border: 1px solid #ead6cf;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #fffaf8;
+}
+
+.search-box input {
+  width: 100%;
+  min-width: 0;
+  padding: 13px 18px;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+.search-box button {
+  border: none;
+  background: var(--brown);
+  color: white;
+  padding: 0 20px;
+}
+
+.cart-button {
+  border: none;
+  background: #ffe4e9;
+  color: var(--brown);
+  padding: 12px 16px;
+  border-radius: 25px;
+  font-weight: bold;
+  white-space: nowrap;
+}
+
+.hero {
+  min-height: 390px;
+  padding: 60px 8%;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(90deg, rgba(44,18,13,.94), rgba(44,18,13,.56)),
+    url("https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=1800&q=85")
+    center/cover;
+  color: white;
+}
+
+.hero-content { max-width: 610px; }
+
+.eyebrow {
+  color: #ffd79b;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.hero h1 {
+  font-family: Georgia, serif;
+  font-size: clamp(38px, 5.5vw, 66px);
+  line-height: 1.08;
+  margin: 17px 0;
+}
+
+.hero h1 span { color: #ffb8c8; }
+
+.hero p {
+  color: #f8e8df;
+  line-height: 1.8;
+  max-width: 480px;
+}
+
+.hero-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-wrap: wrap;
+  margin-top: 26px;
+}
+
+.primary-btn, .secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 13px 22px;
+  border-radius: 28px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: .2s;
+}
+
+.primary-btn {
+  background: #ffb7c8;
+  color: #401a1d;
+  border: none;
+}
+
+.secondary-btn {
+  border: 1px solid #fff;
+  color: white;
+  background: transparent;
+}
+
+.primary-btn:hover, .secondary-btn:hover {
+  transform: translateY(-3px);
+}
+
+.benefits {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: white;
+  padding: 23px 5%;
+  gap: 15px;
+  text-align: center;
+  border-bottom: 1px solid #f0e3db;
+}
+
+.benefits div { line-height: 1.7; }
+.benefits strong { display: block; font-size: 14px; }
+.benefits span { font-size: 12px; color: #8b6b62; }
+
+main { padding: 45px 6% 70px; }
+
+.section-heading {
+  text-align: center;
+  margin-bottom: 28px;
+}
+
+.section-heading .eyebrow { color: #c57c60; }
+
+.section-heading h2 {
+  font: bold clamp(27px, 4vw, 38px) Georgia, serif;
+  margin: 10px 0;
+}
+
+.section-heading p {
+  color: #896d63;
+  font-size: 14px;
+}
+
+.categories {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin: 25px 0;
+}
+
+.category-btn {
+  border: 1px solid #ead6cf;
+  border-radius: 24px;
+  padding: 10px 17px;
+  background: white;
+  color: var(--brown);
+  transition: .2s;
+}
+
+.category-btn.active, .category-btn:hover {
+  background: var(--brown);
+  color: white;
+  border-color: var(--brown);
+}
+
+.result-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin: 25px 0 18px;
+  font-size: 14px;
+}
+
+.result-bar select {
+  padding: 10px 12px;
+  border: 1px solid #ead6cf;
+  border-radius: 9px;
+  color: var(--brown);
+  background: white;
+}
+
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 23px;
+}
+
+.product-card {
+  background: white;
+  border-radius: 17px;
+  overflow: hidden;
+  border: 1px solid #f1e4dd;
+  box-shadow: 0 5px 20px #57281a08;
+  transition: transform .25s, box-shadow .25s;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.product-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 13px 28px #57281a15;
+}
+
+.product-image {
+  height: 205px;
+  position: relative;
+  overflow: hidden;
+  background: #f5e7dc;
+}
+
+.product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .4s;
+}
+
+.product-card:hover .product-image img {
+  transform: scale(1.06);
+}
+
+.tag {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  background: #ffe0e7;
+  color: #7d263c;
+  padding: 6px 10px;
+  border-radius: 20px;
+  font-size: 10px;
+  font-weight: 800;
+}
+
+.product-content {
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.product-type {
+  color: #b07a5e;
+  text-transform: uppercase;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 1.2px;
+}
+
+.product-content h3 {
+  font: bold 19px Georgia, serif;
+  margin: 8px 0;
+  line-height: 1.3;
+}
+
+.rating {
+  font-size: 12px;
+  color: #b77818;
+  margin-bottom: 9px;
+}
+
+.rating span {
+  color: #927d72;
+  margin-left: 4px;
+}
+
+.description {
+  color: #856c61;
+  font-size: 12px;
+  line-height: 1.65;
+  min-height: 40px;
+}
+
+.ingredients {
+  background: #fff7f0;
+  border-radius: 9px;
+  padding: 10px;
+  margin: 12px 0;
+  font-size: 11px;
+  line-height: 1.7;
+}
+
+.ingredients strong {
+  color: #66352b;
+  display: block;
+  font-size: 11px;
+}
+
+.price-row {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin: auto 0 14px;
+  padding-top: 7px;
+}
+
+.price {
+  font-size: 22px;
+  font-weight: 900;
+}
+
+.old-price {
+  text-decoration: line-through;
+  color: #ab958c;
+  font-size: 12px;
+}
+
+.weight {
+  font-size: 11px;
+  color: #927d72;
+  margin-left: auto;
+}
+
+.add-btn {
+  width: 100%;
+  padding: 12px 8px;
+  border: none;
+  border-radius: 10px;
+  background: var(--brown);
+  color: white;
+  font-weight: bold;
+  transition: .2s;
+}
+
+.add-btn:hover { background: #78382f; }
+
+.add-btn.added { background: var(--green); }
+
+.no-results {
+  display: none;
+  text-align: center;
+  padding: 45px 10px;
+  color: #886c60;
+  grid-column: 1 / -1;
+}
+
+.review-section {
+  background: #f8e9e5;
+  padding: 55px 6%;
+}
+
+.review-section h2 {
+  text-align: center;
+  font: bold 32px Georgia, serif;
+  margin-bottom: 30px;
+}
+
+.reviews {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1100px;
+  margin: auto;
+}
+
+.review {
+  background: white;
+  padding: 24px;
+  border-radius: 15px;
+}
+
+.review .stars { color: #c78a23; }
+.review p {
+  margin: 13px 0;
+  line-height: 1.7;
+  color: #755d54;
+  font-size: 14px;
+}
+
+.review strong { font-size: 13px; }
+
+.newsletter {
+  text-align: center;
+  padding: 55px 20px;
+  background: var(--brown);
+  color: white;
+}
+
+.newsletter h2 {
+  font: bold 32px Georgia, serif;
+  margin-bottom: 12px;
+}
+
+.newsletter p {
+  color: #efdbd0;
+  margin-bottom: 20px;
+}
+
+.newsletter form {
+  display: flex;
+  max-width: 460px;
+  margin: auto;
+  gap: 8px;
+}
+
+.newsletter input {
+  flex: 1;
+  min-width: 0;
+  padding: 13px;
+  border: none;
+  border-radius: 25px;
+  outline: none;
+}
+
+.newsletter button {
+  border: none;
+  border-radius: 25px;
+  padding: 13px 18px;
+  background: #ffb7c8;
+  color: var(--brown);
+  font-weight: bold;
+}
+
+footer {
+  background: #29110f;
+  color: #e9d6cb;
+  text-align: center;
+  padding: 23px 15px;
+  font-size: 12px;
+  line-height: 2;
+}
+
+.toast {
+  position: fixed;
+  bottom: 22px;
+  left: 50%;
+  transform: translate(-50%, 100px);
+  background: #2f5b3c;
+  color: white;
+  padding: 14px 22px;
+  border-radius: 30px;
+  box-shadow: 0 8px 30px #0002;
+  z-index: 30;
+  opacity: 0;
+  transition: .3s;
+  max-width: 90%;
+  text-align: center;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translate(-50%, 0);
+}
+
+@media (max-width: 1100px) {
+  .products-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+
+@media (max-width: 760px) {
+  header { padding: 14px 4%; flex-wrap: wrap; }
+  .logo { font-size: 23px; }
+  .search-box { order: 3; flex-basis: 100%; max-width: none; }
+  .hero { min-height: 360px; padding: 45px 6%; }
+  .benefits { padding: 18px 3%; gap: 8px; }
+  .benefits strong { font-size: 12px; }
+  .benefits span { font-size: 10px; }
+  main { padding: 35px 4%; }
+  .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 13px; }
+  .product-image { height: 165px; }
+  .product-content { padding: 12px; }
+  .product-content h3 { font-size: 16px; }
+  .description { font-size: 11px; }
+  .price { font-size: 19px; }
+  .reviews { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 360px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .product-image { height: 230px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="top-strip">
+  🍫 HANDMADE WITH LOVE · FRESHLY MADE · A LITTLE BOX OF HAPPINESS
+</div>
+
+<header>
+  <div class="logo">🍫 Choco<span>Hub</span></div>
+
+  <form class="search-box" id="searchForm">
+    <input id="searchInput" type="search"
+      placeholder="Search truffles, brownies, ingredients..."
+      aria-label="Search chocolate products">
+    <button type="submit" aria-label="Search">🔍</button>
+  </form>
+
+  <button class="cart-button" id="cartButton">
+    🛒 Cart (<span id="cartCount">0</span>)
+  </button>
+</header>
+
+<section class="hero">
+  <div class="hero-content">
+    <div class="eyebrow">Small batches · Big happiness</div>
+    <h1>Every bite tells a <span>chocolate story.</span></h1>
+    <p>
+      Discover handmade chocolate creations crafted with care,
+      dreamy flavours, and ingredients chosen to make every moment sweeter.
+    </p>
+
+    <div class="hero-actions">
+      <a href="#products" class="primary-btn">Explore Chocolates →</a>
+      <a href="#reviews" class="secondary-btn">Sweet Reviews ♥</a>
+    </div>
+  </div>
+</section>
+
+<section class="benefits">
+  <div>🍫 <strong>Handcrafted Goodness</strong><span>Made in small batches</span></div>
+  <div>🎁 <strong>Gift-Worthy Treats</strong><span>Made for special moments</span></div>
+  <div>💝 <strong>Made with Love</strong><span>Flavours to fall for</span></div>
+</section>
+
+<main id="products">
+  <div class="section-heading">
+    <div class="eyebrow">Find your happy bite</div>
+    <h2>Our Chocolate Collection</h2>
+    <p>From timeless classics to unexpected little luxuries.</p>
+  </div>
+
+  <div class="categories">
+    <button class="category-btn active" data-category="All">All Treats</button>
+    <button class="category-btn" data-category="Dark">Dark Chocolate</button>
+    <button class="category-btn" data-category="Milk">Milk Chocolate</button>
+    <button class="category-btn" data-category="Nutty">Nutty Bites</button>
+    <button class="category-btn" data-category="Special">Special Creations</button>
+    <button class="category-btn" data-category="Gifts">Gift Boxes</button>
+  </div>
+
+  <div class="result-bar">
+    <span id="resultCount">Showing all chocolates</span>
+    <label>
+      Sort:
+      <select id="sortSelect">
+        <option value="featured">Featured</option>
+        <option value="low">Price: Low to High</option>
+        <option value="high">Price: High to Low</option>
+        <option value="rating">Top Rated</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="products-grid" id="productsGrid">
+
+    <article class="product-card" data-name="midnight velvet dark chocolate truffles" data-category="Dark" data-price="249" data-rating="4.9">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1548907040-4d42bfc2c2b4?auto=format&fit=crop&w=700&q=80" alt="Handmade dark chocolate truffles" loading="lazy">
+        <span class="tag">BESTSELLER</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Dark Chocolate</div>
+        <h3>Midnight Velvet Truffles</h3>
+        <div class="rating">★★★★★ <span>4.9 (128 reviews)</span></div>
+        <p class="description">Silky, rich cocoa centres wrapped in a delicate chocolate shell.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Dark chocolate, cream, cocoa powder, butter.</div>
+        <div class="price-row"><span class="price">₹249</span><span class="old-price">₹299</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Midnight Velvet Truffles" data-price="249">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="strawberry blush chocolate bites" data-category="Special" data-price="299" data-rating="4.8">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1526081347589-7fa3cb41b4b2?auto=format&fit=crop&w=700&q=80" alt="Chocolate treats with strawberries" loading="lazy">
+        <span class="tag">CUSTOMER LOVE</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Special Creation</div>
+        <h3>Strawberry Blush Bites</h3>
+        <div class="rating">★★★★★ <span>4.8 (96 reviews)</span></div>
+        <p class="description">A romantic strawberry-inspired chocolate treat with a creamy finish.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> White chocolate, strawberry flavour, cocoa butter, milk solids.</div>
+        <div class="price-row"><span class="price">₹299</span><span class="old-price">₹349</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Strawberry Blush Bites" data-price="299">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="hazelnut crunch milk chocolate" data-category="Nutty" data-price="279" data-rating="4.9">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=700&q=80" alt="Premium handmade nut chocolate" loading="lazy">
+        <span class="tag">NUT LOVER'S PICK</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Nutty Bites</div>
+        <h3>Hazelnut Crunch</h3>
+        <div class="rating">★★★★★ <span>4.9 (84 reviews)</span></div>
+        <p class="description">Creamy milk chocolate with a satisfying roasted hazelnut crunch.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Milk chocolate, roasted hazelnuts, cocoa butter, sugar.</div>
+        <div class="price-row"><span class="price">₹279</span><span class="old-price">₹329</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Hazelnut Crunch" data-price="279">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="caramel cloud filled chocolates" data-category="Milk" data-price="229" data-rating="4.7">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80" alt="Chocolate pieces with caramel filling" loading="lazy">
+        <span class="tag">SWEET FAVOURITE</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Milk Chocolate</div>
+        <h3>Caramel Cloud</h3>
+        <div class="rating">★★★★★ <span>4.7 (73 reviews)</span></div>
+        <p class="description">Smooth chocolate shells filled with a buttery caramel centre.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Milk chocolate, sugar, cream, butter, caramel.</div>
+        <div class="price-row"><span class="price">₹229</span><span class="old-price">₹269</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Caramel Cloud" data-price="229">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="coconut snow white chocolate bites" data-category="Special" data-price="199" data-rating="4.6">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1549007994-cb92caebd54b?auto=format&fit=crop&w=700&q=80" alt="White chocolate confectionery" loading="lazy">
+        <span class="tag">TROPICAL TWIST</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Special Creation</div>
+        <h3>Coconut Snow Bites</h3>
+        <div class="rating">★★★★★ <span>4.6 (61 reviews)</span></div>
+        <p class="description">A creamy white chocolate treat with a delicate coconut finish.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> White chocolate, desiccated coconut, milk solids, sugar.</div>
+        <div class="price-row"><span class="price">₹199</span><span class="old-price">₹239</span><span class="weight">120 g</span></div>
+        <button class="add-btn" data-product="Coconut Snow Bites" data-price="199">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="coffee mocha melt chocolate" data-category="Dark" data-price="259" data-rating="4.8">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=700&q=80" alt="Artisan cocoa and coffee chocolate" loading="lazy">
+        <span class="tag">COFFEE LOVERS</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Dark Chocolate</div>
+        <h3>Mocha Melt</h3>
+        <div class="rating">★★★★★ <span>4.8 (92 reviews)</span></div>
+        <p class="description">Deep cocoa notes meet a gentle coffee aroma in every bite.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Dark chocolate, cream, coffee extract, butter, cocoa.</div>
+        <div class="price-row"><span class="price">₹259</span><span class="old-price">₹299</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Mocha Melt" data-price="259">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="pistachio royal chocolate bites" data-category="Nutty" data-price="349" data-rating="4.9">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1575377427642-087cf684f29d?auto=format&fit=crop&w=700&q=80" alt="Premium pistachio chocolate dessert" loading="lazy">
+        <span class="tag">PREMIUM</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Nutty Bites</div>
+        <h3>Pistachio Royale</h3>
+        <div class="rating">★★★★★ <span>4.9 (54 reviews)</span></div>
+        <p class="description">A luxurious nutty creation with a creamy pistachio-inspired filling.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Milk chocolate, pistachios, cream, cocoa butter, sugar.</div>
+        <div class="price-row"><span class="price">₹349</span><span class="old-price">₹399</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Pistachio Royale" data-price="349">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="chocolate brownie fudge cubes" data-category="Milk" data-price="189" data-rating="4.8">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c?auto=format&fit=crop&w=700&q=80" alt="Rich chocolate brownie fudge" loading="lazy">
+        <span class="tag">FUDGY GOODNESS</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Milk Chocolate</div>
+        <h3>Brownie Fudge Cubes</h3>
+        <div class="rating">★★★★★ <span>4.8 (110 reviews)</span></div>
+        <p class="description">Dense, fudgy chocolate cubes for the serious dessert lover.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Cocoa, flour, butter, sugar, chocolate, eggs.</div>
+        <div class="price-row"><span class="price">₹189</span><span class="old-price">₹229</span><span class="weight">6 pieces</span></div>
+        <button class="add-btn" data-product="Brownie Fudge Cubes" data-price="189">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="orange zest dark chocolate" data-category="Dark" data-price="269" data-rating="4.7">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=700&q=80" alt="Artisan dark chocolate pieces" loading="lazy">
+        <span class="tag">UNIQUE FLAVOUR</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Dark Chocolate</div>
+        <h3>Orange Zest Noir</h3>
+        <div class="rating">★★★★★ <span>4.7 (47 reviews)</span></div>
+        <p class="description">Bold dark cocoa balanced by a bright citrus-inspired finish.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Dark chocolate, orange zest, cocoa butter, sugar.</div>
+        <div class="price-row"><span class="price">₹269</span><span class="old-price">₹309</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Orange Zest Noir" data-price="269">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="rose cardamom chocolate" data-category="Special" data-price="319" data-rating="4.9">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1548907040-4d42bfc2c2b4?auto=format&fit=crop&w=700&q=80" alt="Handcrafted chocolate bonbons" loading="lazy">
+        <span class="tag">SIGNATURE</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Special Creation</div>
+        <h3>Rose & Cardamom</h3>
+        <div class="rating">★★★★★ <span>4.9 (39 reviews)</span></div>
+        <p class="description">A delicate floral note with warm spice in a distinctly Indian-inspired treat.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Milk chocolate, cream, cardamom, rose flavour.</div>
+        <div class="price-row"><span class="price">₹319</span><span class="old-price">₹359</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Rose & Cardamom" data-price="319">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="berry burst chocolate bark" data-category="Special" data-price="289" data-rating="4.6">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1481391319762-47dff72954d9?auto=format&fit=crop&w=700&q=80" alt="Chocolate bark with assorted toppings" loading="lazy">
+        <span class="tag">FRUITY CRUNCH</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Special Creation</div>
+        <h3>Berry Burst Bark</h3>
+        <div class="rating">★★★★★ <span>4.6 (42 reviews)</span></div>
+        <p class="description">A playful chocolate bark with berry-inspired flavour and crunchy texture.</p>
+        <div class="ingredients"><strong>🌿 Ingredients</strong> Dark chocolate, dried berries, nuts, cocoa butter.</div>
+        <div class="price-row"><span class="price">₹289</span><span class="old-price">₹329</span><span class="weight">150 g</span></div>
+        <button class="add-btn" data-product="Berry Burst Bark" data-price="289">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <article class="product-card" data-name="little luxury assorted gift box" data-category="Gifts" data-price="599" data-rating="5.0">
+      <div class="product-image">
+        <img src="https://images.unsplash.com/photo-1511381939415-e44015466834?auto=format&fit=crop&w=700&q=80" alt="Luxury assorted chocolate gift collection" loading="lazy">
+        <span class="tag">GIFT FAVOURITE</span>
+      </div>
+      <div class="product-content">
+        <div class="product-type">Gift Boxes</div>
+        <h3>Little Luxury Gift Box</h3>
+        <div class="rating">★★★★★ <span>5.0 (68 reviews)</span></div>
+        <p class="description">An assorted selection of handmade treats for birthdays and celebrations.</p>
+        <div class="ingredients"><strong>🌿 Inside the box</strong> Assorted chocolates, truffles, nut bites. Check individual ingredient labels.</div>
+        <div class="price-row"><span class="price">₹599</span><span class="old-price">₹699</span><span class="weight">300 g</span></div>
+        <button class="add-btn" data-product="Little Luxury Gift Box" data-price="599">＋ Add to Cart</button>
+      </div>
+    </article>
+
+    <div class="no-results" id="noResults">
+      <div style="font-size:40px">🍫</div>
+      <h3>No chocolates found!</h3>
+      <p>Try another search or choose a different category.</p>
+    </div>
+
+  </div>
+</main>
+
+<section class="review-section" id="reviews">
+  <h2>Love Notes from Chocolate Lovers 💌</h2>
+
+  <div class="reviews">
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>“The truffles were so smooth and rich. The packaging felt like opening a little present!”</p>
+      <strong>— Ananya K.</strong>
+    </div>
+
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>“The hazelnut crunch is my favourite. Such a lovely gift for someone who loves chocolate.”</p>
+      <strong>— Meera S.</strong>
+    </div>
+
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p>“Loved the unique flavours and the cute presentation. The gift box made the occasion extra special.”</p>
+      <strong>— Diya R.</strong>
+    </div>
+  </div>
+  <p style="text-align:center;font-size:11px;margin-top:22px;color:#85655c">
+    Sample reviews for website design. Replace with genuine customer feedback before publishing.
+  </p>
+</section>
+
+<section class="newsletter">
+  <h2>A little sweetness in your inbox 🍓</h2>
+  <p>Discover new flavours, gift ideas, and special chocolate offers.</p>
+  <form id="newsletterForm">
+    <input type="email" id="emailInput" placeholder="Enter your email address" required>
+    <button type="submit">Join Us ♥</button>
+  </form>
+</section>
+
+<footer>
+  <div style="font-size:21px;font-weight:900;color:#ffb7c8">🍫 ChocoHub</div>
+  Handmade with love, one chocolate at a time.<br>
+  © 2026 ChocoHub · Made for chocolate lovers
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const searchInput = document.getElementById("searchInput");
+const productCards = [...document.querySelectorAll(".product-card")];
+const categoryButtons = [...document.querySelectorAll(".category-btn")];
+const sortSelect = document.getElementById("sortSelect");
+const resultCount = document.getElementById("resultCount");
+const noResults = document.getElementById("noResults");
+const grid = document.getElementById("productsGrid");
+const toast = document.getElementById("toast");
+
+let selectedCategory = "All";
+let cart = [];
+let toastTimer;
+
+function showToast(message) {
+  toast.textContent = message;
+  toast.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toast.classList.remove("show"), 2600);
+}
+
+function filterProducts() {
+  const query = searchInput.value.toLowerCase().trim();
+  let visible = 0;
+
+  productCards.forEach(card => {
+    const searchableText =
+      card.dataset.name + " " +
+      card.dataset.category + " " +
+      card.innerText;
+
+    const matchesSearch = searchableText.toLowerCase().includes(query);
+    const matchesCategory =
+      selectedCategory === "All" ||
+      card.dataset.category === selectedCategory;
+
+    card.style.display = matchesSearch && matchesCategory ? "flex" : "none";
+    if (matchesSearch && matchesCategory) visible++;
+  });
+
+  const visibleCards = productCards.filter(card => card.style.display !== "none");
+  const sortMode = sortSelect.value;
+
+  visibleCards.sort((a, b) => {
+    if (sortMode === "low") return +a.dataset.price - +b.dataset.price;
+    if (sortMode === "high") return +b.dataset.price - +a.dataset.price;
+    if (sortMode === "rating") return +b.dataset.rating - +a.dataset.rating;
+    return productCards.indexOf(a) - productCards.indexOf(b);
+  });
+
+  visibleCards.forEach(card => grid.insertBefore(card, noResults));
+
+  resultCount.textContent =
+    visible + (visible === 1 ? " chocolate found" : " chocolates found");
+
+  noResults.style.display = visible === 0 ? "block" : "none";
+}
+
+searchInput.addEventListener("input", filterProducts);
+
+document.getElementById("searchForm").addEventListener("submit", event => {
+  event.preventDefault();
+  filterProducts();
+  document.getElementById("products").scrollIntoView({ behavior: "smooth" });
+});
+
+categoryButtons.forEach(button => {
+  button.addEventListener("click", () => {
+    categoryButtons.forEach(item => item.classList.remove("active"));
+    button.classList.add("active");
+    selectedCategory = button.dataset.category;
+    filterProducts();
+  });
+});
+
+sortSelect.addEventListener("change", filterProducts);
+
+document.querySelectorAll(".add-btn").forEach(button => {
+  button.addEventListener("click", () => {
+    const productName = button.dataset.product;
+    const price = Number(button.dataset.price);
+    const existing = cart.find(item => item.name === productName);
+
+    if (existing) {
+      existing.quantity++;
+    } else {
+      cart.push({ name: productName, price, quantity: 1 });
+    }
+
+    const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+    document.getElementById("cartCount").textContent = count;
+
+    button.textContent = "✓ Added to Cart";
+    button.classList.add("added");
+
+    showToast(productName + " added to your cart! 🛒");
+  });
+});
+
+document.getElementById("cartButton").addEventListener("click", () => {
+  if (cart.length === 0) {
+    showToast("Your cart is empty. Pick a sweet treat! 🍫");
+    return;
+  }
+
+  const details = cart.map(item =>
+    item.name + " × " + item.quantity +
+    " = ₹" + (item.price * item.quantity)
+  );
+
+  const total = cart.reduce(
+    (sum, item) => sum + item.price * item.quantity, 0
+  );
+
+  alert(
+    "YOUR CHOCOHUB CART 🛒\n\n" +
+    details.join("\n") +
+    "\n\nTotal: ₹" + total +
+    "\n\nCheckout can be connected to a payment system later."
+  );
+});
+
+document.getElementById("newsletterForm").addEventListener("submit", event => {
+  event.preventDefault();
+  const email = document.getElementById("emailInput").value;
+  showToast("Thanks for joining our sweet club! 💌");
+  event.target.reset();
+});
+
+filterProducts();
+</script>
+
+</body>
+</html>
